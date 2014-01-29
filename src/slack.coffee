@@ -124,8 +124,10 @@ class Slack extends Adapter
 
       hubotMsg = self.getMessageFromRequest req
       author = self.getAuthorFromRequest req
-      user = self.robot.brain.userForId author.id, author.name
-      
+      userId = author.id
+      user = self.robot.brain.userForId userId, author
+      self.robot.brain.data.users[userId].name = userData.user.name
+
       if hubotMsg and author
         # Pass to the robot
         self.log "Received #{hubotMsg} from #{author.name}"
